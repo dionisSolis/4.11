@@ -1,0 +1,117 @@
+using System;
+namespace qwerty
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string userAnswer = "", userChoice;
+            bool isChoiceCorrect = false;
+            int totalSum = 0, userMoney;
+            List<int> listOfUserPurchases = new List<int>();
+            int[] listOfCountOfUserPurchases = {0, 0, 0, 0};
+            int[] totalListOfCountOfUserPurchases = { 0, 0, 0, 0 };
+
+            Console.Write("Введите количество Ваших денег: ");
+            userMoney = int.Parse(Console.ReadLine());
+
+            while (userAnswer != "выйти")
+            {
+                Console.Clear();
+
+                while (userAnswer != "да")
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Ваш баланс:{userMoney}\n\nВ магазине присутствуют следующие товары: \nЯблоко - 50р. \nБанан - 70р. \nИкра лососевая - 9999р. \nВодка - 10р.");
+                    Console.Write("\nВведите название продукта для приобретения: ");
+                    userChoice = Console.ReadLine().ToLower();
+                    isChoiceCorrect = false;
+
+                    while (isChoiceCorrect == false)
+                    {
+                        switch (userChoice)
+                        {
+                            case "яблоко":
+                                totalSum += 50;
+                                isChoiceCorrect = true;
+                                listOfCountOfUserPurchases[0] += 1;
+                                break;
+                            case "банан":
+                                totalSum += 70;
+                                isChoiceCorrect = true;
+                                listOfCountOfUserPurchases[1] += 1;
+                                break;
+                            case "икра лососевая":
+                                totalSum += 9999;
+                                isChoiceCorrect = true;
+                                listOfCountOfUserPurchases[2] += 1;
+                                break;
+                            case "водка":
+                                totalSum += 10;
+                                isChoiceCorrect = true;
+                                listOfCountOfUserPurchases[3] += 1;
+                                break;
+                            default:
+                                Console.WriteLine("Введите название товара корректно");
+                                userChoice = Console.ReadLine().ToLower();
+                                break;
+                        }
+                    }
+
+                    Console.Clear();
+                    Console.WriteLine($"Ваша корзина: \nЯблоки - {listOfCountOfUserPurchases[0]} шт.\nБананы - {listOfCountOfUserPurchases[1]} шт.\nИкра лососевая - {listOfCountOfUserPurchases[2]} шт.\nВодка {listOfCountOfUserPurchases[3]} шт.");
+                    Console.Write("\nВы хотите пойти на кассу? (Да/Нет) ... ");
+                    userAnswer = Console.ReadLine().ToLower();
+
+                    while (userAnswer != "да" && userAnswer != "нет")
+                    {
+                        Console.WriteLine("Введите ответ корректно. Да/Нет");
+                        userAnswer = Console.ReadLine().ToLower();
+                    }
+                }
+
+                Console.Clear();
+                Console.WriteLine($"Ваша корзина: \nЯблоки - {listOfCountOfUserPurchases[0]} шт.\nБананы - {listOfCountOfUserPurchases[1]} шт.\nИкра лососевая - {listOfCountOfUserPurchases[2]} шт.\nВодка {listOfCountOfUserPurchases[3]} шт.");
+                Console.WriteLine($"\nИтоговый чек: {totalSum}");
+
+                if (userMoney >= totalSum)
+                {
+                    userMoney -= totalSum;
+                    totalSum = 0;
+                    Console.WriteLine("Ваша покупка оплачена!");
+
+                    for (int i = 0; i < listOfCountOfUserPurchases.Length; i++)
+                    {
+                        totalListOfCountOfUserPurchases[i] += listOfCountOfUserPurchases[i];
+                        listOfCountOfUserPurchases[i] = 0;
+                    }
+                }    
+                else
+                {
+                    totalSum = 0;
+
+                    for (int i = 0; i < listOfCountOfUserPurchases.Length; i++)
+                    {
+                        listOfCountOfUserPurchases[i] = 0;
+                    }
+
+                    Console.WriteLine("У Вас недостаточно средств");
+                }
+
+                Console.WriteLine($"\nВаш баланс:{userMoney}");
+                Console.WriteLine($"\nВаша общая корзина: \nЯблоки - {totalListOfCountOfUserPurchases[0]} шт.\nБананы - {totalListOfCountOfUserPurchases[1]} шт.\nИкра лососевая - {totalListOfCountOfUserPurchases[2]} шт.\nВодка {totalListOfCountOfUserPurchases[3]} шт.");
+                Console.Write("\nЖелаете выйти или продолжить? Введите название операции ... ");
+                userAnswer = Console.ReadLine();
+
+                while (userAnswer != "выйти" && userAnswer != "продолжить")
+                {
+                    Console.Write("\nЖелаете выйти или продолжить? Введите название операции корректно ... ");
+                    userAnswer = Console.ReadLine();
+                }
+            }
+
+            Console.WriteLine("До свидания!");
+            Console.Read();
+        }
+    }
+}
