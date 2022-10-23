@@ -8,9 +8,8 @@ namespace qwerty
             string userAnswer = "", userChoice;
             bool isChoiceCorrect = false;
             int totalSum = 0, userMoney;
-            List<int> listOfUserPurchases = new List<int>();
-            int[] listOfCountOfUserPurchases = {0, 0, 0, 0};
-            int[] totalListOfCountOfUserPurchases = { 0, 0, 0, 0 };
+            int[] listOfCountOfUserPurchases = new int[4];
+            int[] totalListOfCountOfUserPurchases = new int[4];
 
             Console.Write("Введите количество Ваших денег: ");
             userMoney = int.Parse(Console.ReadLine());
@@ -80,17 +79,17 @@ namespace qwerty
                     totalSum = 0;
                     Console.WriteLine("Ваша покупка оплачена!");
 
-                    for (int i = 0; i < listOfCountOfUserPurchases.Length; i++)
+                    for (int i = 0; i < listOfCountOfUserPurchases.GetLength(0); i++)
                     {
                         totalListOfCountOfUserPurchases[i] += listOfCountOfUserPurchases[i];
                         listOfCountOfUserPurchases[i] = 0;
                     }
-                }    
+                }
                 else
                 {
                     totalSum = 0;
 
-                    for (int i = 0; i < listOfCountOfUserPurchases.Length; i++)
+                    for (int i = 0; i < listOfCountOfUserPurchases.GetLength(0); i++)
                     {
                         listOfCountOfUserPurchases[i] = 0;
                     }
